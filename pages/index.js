@@ -17,17 +17,21 @@ import useLocalStorage from '../hooks/useLocalStorage'
 
 import NumberInput from '../components/inputs/NumberInput'
 import SliderInput from '../components/inputs/SliderInput'
+import CheckboxInput from '../components/inputs/CheckboxInput'
 import ColorPalettes from '../components/ColorPalettes'
 import Input from '../components/inputs/Input'
 
 import StyledContainer from '../components/StyledContainer'
 import colorsSource from '../components/colors'
+import sketch from '../components/sketch'
 
 const initialSketchState = {
+  canvasWidth: 400,
+  canvasHeight: 400,
+  useSin: false,
+  rotationSpeed: 2.5,
+  sizeGrowSpeed: 2.5,
   size: 200,
-  speed: 50,
-  canvasWidth: 500,
-  canvasHeight: 500,
   activeCode: colorsSource[0].code,
 }
 
@@ -115,7 +119,8 @@ const Index = ({}) => {
                 endEnhancer="px"
               />
               <NumberInput
-                name="Size"
+                name="Circle size"
+                type="number"
                 value={sketchState.size}
                 setValue={newValue =>
                   setSketchState({
@@ -125,12 +130,38 @@ const Index = ({}) => {
                 }
               />
               <SliderInput
-                name="Speed"
-                value={[sketchState.speed]}
+                name="Rotation speed"
+                value={[sketchState.rotationSpeed]}
+                min={0.1}
+                max={5}
+                step={0.1}
                 setValue={newValue =>
                   setSketchState({
                     ...sketchState,
-                    speed: newValue[0],
+                    rotationSpeed: newValue[0],
+                  })
+                }
+              />
+              <CheckboxInput
+                name="Rotate with Math.sin"
+                value={sketchState.useSin}
+                setValue={newValue =>
+                  setSketchState({
+                    ...sketchState,
+                    useSin: newValue,
+                  })
+                }
+              />
+              <SliderInput
+                name="Size grow speed"
+                value={[sketchState.sizeGrowSpeed]}
+                min={0.1}
+                max={5}
+                step={0.1}
+                setValue={newValue =>
+                  setSketchState({
+                    ...sketchState,
+                    sizeGrowSpeed: newValue[0],
                   })
                 }
               />
@@ -154,19 +185,23 @@ const Index = ({}) => {
                 kind={buttonKind.secondary}
                 onClick={callSaveCanvas}
               >
-                Save this frame
+                Capture
               </Button>
               <Button
                 $style={() => ({
                   display: 'block',
                   width: '100%',
                 })}
-                kind={buttonKind.secondary}
+                kind={buttonKind.minimal}
                 onClick={handlePreserveParams}
               >
-                Preserve params
+                Save settings
               </Button>
               <Button
+                $style={() => ({
+                  display: 'block',
+                  width: '100%',
+                })}
                 onClick={handleResetAll}
                 kind={buttonKind.minimal}
               >

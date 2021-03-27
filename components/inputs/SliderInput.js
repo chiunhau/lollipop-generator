@@ -2,13 +2,19 @@ import React from 'react'
 import { Slider } from 'baseui/slider'
 import { FormControl } from 'baseui/form-control'
 
-const SilderInput = ({ value, setValue, name }) => {
+const SilderInput = ({
+  value,
+  setValue,
+  name,
+  ...props
+}) => {
   return (
     <FormControl label={name}>
       <Slider
         value={value}
         onChange={({ value }) => value && setValue(value)}
         onFinalChange={({ value }) => console.log(value)}
+        {...props}
         overrides={{
           Track: {
             style: ({ $theme }) => ({

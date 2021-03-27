@@ -14,6 +14,7 @@ const NumberInput = ({ name, value, setValue }) => {
       <Input
         size={inputSize.compact}
         value={value}
+        type="number"
         onChange={e => setValue(parseInt(e.target.value))}
         startEnhancer={() => (
           <Button

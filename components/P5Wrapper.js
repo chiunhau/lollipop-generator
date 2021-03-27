@@ -1,11 +1,10 @@
 import React, {
   useEffect,
   useRef,
-  forwardRef,
   useImperativeHandle,
 } from 'react'
 import P5 from 'p5'
-import sketch from './sketch2'
+import sketch from './sketch'
 
 import useForceUpdate from '../hooks/useForceUpdate'
 
